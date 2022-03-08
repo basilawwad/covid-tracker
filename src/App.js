@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
-import DropDown from './components/DropDown'
+import CountryPicker from './components/CountryPicker/CountryPicker'
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <DropDown countries= {countries}></DropDown>
+      <CountryPicker countries= {countries}/>
       <h1>hello</h1>
       </header>
     </div>
