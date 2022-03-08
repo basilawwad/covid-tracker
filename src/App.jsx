@@ -1,33 +1,33 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import CountryPicker from './components/CountryPicker/CountryPicker';
 import Chart from './components/Chart/Chart';
 import Cards from './components/Cards/Cards';
 import styles from './App.module.css';
-import { fetchData } from './api/index';
+import { fetchData, getCountries, getDailyData } from './api/index';
 function App() {
   const [countries, setCountries] = useState([]);
+  const [data, setData] = useState({});
 
   useEffect(() => {
-    axios
-      .get('https://covid19.mathdro.id/api/countries')
-      .then((response) => setCountries(response.data.countries));
+    async function fetchMyAPI() {
+      const fetchedData = await fetchData();
+      const countryData = await getCountries();
+      const dailyData = await getDailyData();
+
+      setCountries(countryData);
+      setData(fetchedData);
+
+      console.log(dailyData);
+    }
+
+    fetchMyAPI();
   }, []);
-
-  useEffect(
-    () => async () => {
-      const data = await fetchData;
-
-      console.log(data);
-    },
-    []
-  );
 
   return (
     <div className={styles.container}>
       <CountryPicker countries={countries} />
       <Chart />
-      <Cards />
+      <Cards data={data} />
     </div>
   );
 }
