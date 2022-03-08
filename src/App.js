@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios';
 import CountryPicker from './components/CountryPicker/CountryPicker'
+import Chart from './components/CountryPicker/Chart'
+import Cards from './components/CountryPicker/Cards'
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -14,6 +16,8 @@ function App() {
     <div className="App">
       <header className="App-header">
       <CountryPicker countries= {countries}/>
+      <Chart />
+      <Cards />
       <h1>hello</h1>
       </header>
     </div>
