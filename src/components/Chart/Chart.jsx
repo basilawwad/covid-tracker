@@ -36,14 +36,17 @@ const Chart = () => {
             data: dailyData.map(({ confirmed }) => confirmed),
             label: 'Infected',
             borderColor: '#3333ff',
-            fill: true
+            backgroundColor: 'blue',
+            fill: true,
+            tension: 0.1
           },
           {
             data: dailyData.map(({ deaths }) => deaths),
             label: 'Deaths',
             borderColor: 'red',
             backgroundColor: 'rgba(255, 0, 0, 2.5)',
-            fill: true
+            fill: true,
+            tension: 0.1
           }
         ]
       }}

@@ -6,17 +6,20 @@ import styles from './App.module.css';
 import { fetchData } from './api/index';
 function App() {
   const [data, setData] = useState({});
+  const [country, setCountry] = useState('Global');
 
   useEffect(() => {
     async function fetchMyAPI() {
-      const fetchedData = await fetchData();
+      const fetchedData = country == 'Global' ? await fetchData() : await fetchData(country);
       setData(fetchedData);
+
+      console.log(data);
     }
     fetchMyAPI();
-  }, []);
+  }, [country]);
 
   const handleCountryChange = () => {
-    console.log(event.target.value);
+    setCountry(event.target.value);
   };
 
   return (
