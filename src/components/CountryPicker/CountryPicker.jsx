@@ -1,17 +1,33 @@
-const DropDown = (props) => {
+import { useState, useEffect } from 'react';
+import { getCountries } from '../../api';
+import { NativeSelect, FormControl } from '@material-ui/core';
+
+import styles from './CountryPicker.module.css';
+
+const CountryPicker = ({ handleCountryChange }) => {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      const fetchedData = await getCountries();
+      setCountries(fetchedData);
+    }
+
+    fetchMyAPI();
+  }, []);
+
   return (
-    <select key={'t'} name='countries' id='countries'>
-      {props.countries ? (
-        props.countries.map((ele) => (
-          <option key={ele.iso2} value={ele.iso3}>
-            {ele.name}
+    <FormControl>
+      <NativeSelect onChange={handleCountryChange}>
+        <option className={styles.formControl}>Global</option>
+        {countries.map(({ name }, i) => (
+          <option key={i} value={name}>
+            {name}
           </option>
-        ))
-      ) : (
-        <h2>Loading...</h2>
-      )}
-    </select>
+        ))}
+      </NativeSelect>
+    </FormControl>
   );
 };
 
-export default DropDown;
+export default CountryPicker;
