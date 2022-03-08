@@ -1,22 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react'
+import axios from 'axios';
+import DropDown from './components/DropDown'
 
 function App() {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://covid19.mathdro.id/api/countries')
+      .then(response => setCountries(response.data.countries))
+    }, [])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <DropDown countries= {countries}></DropDown>
+      <h1>hello</h1>
       </header>
     </div>
   );
